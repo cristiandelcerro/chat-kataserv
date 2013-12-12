@@ -1,5 +1,6 @@
 package chatkata;
 
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.yammer.dropwizard.testing.ResourceTest;
 import org.junit.Assert;
@@ -78,11 +79,66 @@ public class ChatResourceTest extends ResourceTest {
         Assert.assertEquals(chatResource.subListFromNextSeq(1), subList);
     }
 
-    private void doPost(ChatMessage msg){
+    @Test
+    public void correctSaveMessageDoingPost(){
+        ChatMessage chatmsg1 = ChatMessage.messageFactory("user1", "msg1");
+        doPost(chatmsg1);
+
+        ServerResponse getServerResponse = doGet();
+
+        ChatMessage msgReceived = getServerResponse.getMessages().peek();
+
+        assertEquals(chatmsg1.getNick(), msgReceived.getNick());
+        assertEquals(chatmsg1.getMessage(), msgReceived.getMessage());
+    }
+
+    @Test
+    public void withoutParameterReturnFullList(){
+        ChatMessage chatmsg1 = ChatMessage.messageFactory("user1", "msg1");
+        ChatMessage chatmsg2 = ChatMessage.messageFactory("user2", "msg2");
+        ChatMessage chatmsg3 = ChatMessage.messageFactory("user3", "msg3");
+
+        doPost(chatmsg1);
+        doPost(chatmsg2);
+        doPost(chatmsg3);
+
+        ServerResponse getServerResponse = doGet();
+
+        assertEquals(3, getServerResponse.getMessages().size());
+    }
+
+    @Test
+    public void postResponseIsOK(){
+        ChatMessage chatmsg1 = ChatMessage.messageFactory("user1", "msg1");
+
+        assertEquals(doPost(chatmsg1).getStatus(), 200);
+    }
+
+    @Test
+    public void postResponseIsBad(){
+        Assert.assertEquals(doPost(null).getStatus(), 400);
+    }
+
+    @Test
+    public void getReturnCorrectListWithParam(){
+        ChatMessage chatmsg1 = ChatMessage.messageFactory("user1", "msg1");
+        ChatMessage chatmsg2 = ChatMessage.messageFactory("user2", "msg2");
+        ChatMessage chatmsg3 = ChatMessage.messageFactory("user3", "msg3");
+
+        doPost(chatmsg1);
+        doPost(chatmsg2);
+        doPost(chatmsg3);
+
+        ServerResponse getServerResponse = doGet(1);
+
+        Assert.assertEquals(2, getServerResponse.getMessages().size());
+    }
+
+    private ClientResponse doPost(ChatMessage msg){
         WebResource.Builder builderPost = (WebResource.Builder) client().resource("/chat-kata/api/chat")
                 .type(MediaType.APPLICATION_JSON);
 
-        builderPost.post(ChatMessage.class, msg);
+        return builderPost.post(ClientResponse.class, msg);
     }
 
     private ServerResponse doGet(){
@@ -91,6 +147,11 @@ public class ChatResourceTest extends ResourceTest {
 
         return getServerResponse;
     }
+
+    private ServerResponse doGet(int param){
+        ServerResponse getServerResponse = client().resource("/chat-kata/api/chat?next_seq="+param).
+                type(MediaType.APPLICATION_JSON).get(ServerResponse.class);
+
+        return getServerResponse;
+    }
 }
-
-

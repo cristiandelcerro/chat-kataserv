@@ -7,7 +7,6 @@ public class ServerResponse {
     private LinkedList<ChatMessage> messages;
 
     public ServerResponse(){
-
     }
 
     public ServerResponse(int nextSeq, LinkedList<ChatMessage> messages){

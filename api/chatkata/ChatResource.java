@@ -69,7 +69,7 @@ public class ChatResource {
     @POST
     public Response add(ChatMessage chatMessage) {
         if(chatMessage == null)
-            return Response.status(422).build();
+            return Response.status(400).build();
 
         listChatMessages.add(chatMessage);
         serverResponse.setMessages(listChatMessages);
