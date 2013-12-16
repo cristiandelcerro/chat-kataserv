@@ -1,4 +1,4 @@
-package prueba;
+package api.prueba;
 
 /**
  * Created with IntelliJ IDEA.

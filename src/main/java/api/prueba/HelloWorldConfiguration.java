@@ -1,4 +1,4 @@
-package prueba;
+package api.prueba;
 
 import com.yammer.dropwizard.config.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;

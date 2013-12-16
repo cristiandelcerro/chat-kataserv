@@ -1,4 +1,4 @@
-package prueba;
+package api.prueba;
 
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;

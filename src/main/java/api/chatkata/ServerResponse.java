@@ -1,4 +1,4 @@
-package chatkata;
+package api.chatkata;
 
 import java.util.LinkedList;
 

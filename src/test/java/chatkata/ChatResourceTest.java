@@ -1,5 +1,8 @@
 package chatkata;
 
+import api.chatkata.ChatMessage;
+import api.chatkata.ChatResource;
+import api.chatkata.ServerResponse;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.yammer.dropwizard.testing.ResourceTest;

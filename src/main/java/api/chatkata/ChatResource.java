@@ -1,4 +1,4 @@
-package chatkata;
+package api.chatkata;
 
 import com.google.common.base.Optional;
 import com.yammer.metrics.annotation.Timed;
@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.LinkedList;
 
-@Path("chat-kata/api/chat")
+@Path("/chat-kata/api/chat")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 

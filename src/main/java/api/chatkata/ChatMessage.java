@@ -1,11 +1,11 @@
-package chatkata;
+package api.chatkata;
 
 
 public class ChatMessage {
     private String nick;
     private String message;
 
-    static ChatMessage messageFactory(String nick, String message) {
+    public static ChatMessage messageFactory(String nick, String message) {
         ChatMessage r = new ChatMessage();
         r.setNick(nick);
         r.setMessage(message);

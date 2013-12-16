@@ -1,4 +1,4 @@
-package chatkata;
+package api.chatkata;
 
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
